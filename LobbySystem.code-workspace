@@ -1,0 +1,868 @@
+{
+	"folders": [
+		{
+			"name": "LobbySystem",
+			"path": "."
+		},
+		{
+			"name": "UE5",
+			"path": "/opt/EpicGames/UE_5.3"
+		}
+	],
+	"settings": {
+		"typescript.tsc.autoDetect": "off",
+		"npm.autoDetect": "off"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-vscode.cpptools",
+			"ms-dotnettools.csharp",
+			"vadimcn.vscode-lldb",
+			"ms-vscode.mono-debug",
+			"dfarley1.file-picker"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "LobbySystem Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Test Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Test Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem Linux Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Test Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Shipping Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Shipping Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem Linux Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem Linux Shipping Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"Linux",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem LinuxArm64 Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem LinuxArm64 DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem LinuxArm64 Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Test Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Test Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem LinuxArm64 Test Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Test Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Test",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Shipping Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Shipping Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystem LinuxArm64 Shipping Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystem LinuxArm64 Shipping Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystem",
+					"LinuxArm64",
+					"Shipping",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Debug Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Debug Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystemEditor Linux Debug Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Debug Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Debug",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux DebugGame Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux DebugGame Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystemEditor Linux DebugGame Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux DebugGame Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"DebugGame",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Development Build",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Development Rebuild",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex"
+				],
+				"problemMatcher": "$msCompile",
+				"dependsOn": [
+					"LobbySystemEditor Linux Development Clean"
+				],
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			},
+			{
+				"label": "LobbySystemEditor Linux Development Clean",
+				"group": "build",
+				"command": "Engine/Build/BatchFiles/Linux/Build.sh",
+				"args": [
+					"LobbySystemEditor",
+					"Linux",
+					"Development",
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-waitmutex",
+					"-clean"
+				],
+				"problemMatcher": "$msCompile",
+				"type": "shell",
+				"options": {
+					"cwd": "/opt/EpicGames/UE_5.3"
+				}
+			}
+		]
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch LobbySystem (Debug)",
+				"request": "launch",
+				"program": "/home/prkj/workspace/01-lab/LobbySystem/Binaries/Linux/UnrealGame-Linux-Debug",
+				"preLaunchTask": "LobbySystem Linux Debug Build",
+				"args": [
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystem (DebugGame)",
+				"request": "launch",
+				"program": "/home/prkj/workspace/01-lab/LobbySystem/Binaries/Linux/UnrealGame-Linux-DebugGame",
+				"preLaunchTask": "LobbySystem Linux DebugGame Build",
+				"args": [
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystem (Development)",
+				"request": "launch",
+				"program": "/home/prkj/workspace/01-lab/LobbySystem/Binaries/Linux/UnrealGame",
+				"preLaunchTask": "LobbySystem Linux Development Build",
+				"args": [
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystem (Test)",
+				"request": "launch",
+				"program": "/home/prkj/workspace/01-lab/LobbySystem/Binaries/Linux/UnrealGame-Linux-Test",
+				"preLaunchTask": "LobbySystem Linux Test Build",
+				"args": [
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystem (Shipping)",
+				"request": "launch",
+				"program": "/home/prkj/workspace/01-lab/LobbySystem/Binaries/Linux/UnrealGame-Linux-Shipping",
+				"preLaunchTask": "LobbySystem Linux Shipping Build",
+				"args": [
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystemEditor (Debug)",
+				"request": "launch",
+				"program": "/opt/EpicGames/UE_5.3/Engine/Binaries/Linux/UnrealEditor-Linux-Debug",
+				"preLaunchTask": "LobbySystemEditor Linux Debug Build",
+				"args": [
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject"
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystemEditor (DebugGame)",
+				"request": "launch",
+				"program": "/opt/EpicGames/UE_5.3/Engine/Binaries/Linux/UnrealEditor-Linux-DebugGame",
+				"preLaunchTask": "LobbySystemEditor Linux DebugGame Build",
+				"args": [
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject"
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Launch LobbySystemEditor (Development)",
+				"request": "launch",
+				"program": "/opt/EpicGames/UE_5.3/Engine/Binaries/Linux/UnrealEditor",
+				"preLaunchTask": "LobbySystemEditor Linux Development Build",
+				"args": [
+					"/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject"
+				],
+				"cwd": "/opt/EpicGames/UE_5.3",
+				"type": "cppdbg",
+				"visualizerFile": "/opt/EpicGames/UE_5.3/Engine/Extras/VisualStudioDebugging/Unreal.natvis",
+				"showDisplayString": true
+			},
+			{
+				"name": "Generate Project Files",
+				"type": "coreclr",
+				"request": "launch",
+				"preLaunchTask": "UnrealBuildTool Linux Development Build",
+				"program": "/opt/EpicGames/UE_5.3/Engine/Build/BatchFiles/RunUBT.bat",
+				"args": [
+					"-projectfiles",
+					"-vscode",
+					"-project=/home/prkj/workspace/01-lab/LobbySystem/LobbySystem.uproject",
+					"-game",
+					"-engine",
+					"-dotnet"
+				],
+				"console": "internalConsole",
+				"internalConsoleOptions": "openOnSessionStart",
+				"stopAtEntry": false,
+				"cwd": "/opt/EpicGames/UE_5.3"
+			}
+		]
+	}
+}
