@@ -11,6 +11,7 @@
 #include "Chaos/ChaosPerfTest.h"
 #include "Gameplay/C_LobbyGameMode.h"
 #include "Interfaces/OnlineSessionInterface.h"
+#include "Kismet/GameplayStatics.h"
 #include "Settings/C_MultiplayerSessionSetting.h"
 
 UC_MultiplayerSessionSubsystem::UC_MultiplayerSessionSubsystem():
@@ -40,7 +41,7 @@ StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this
 		return;
 	}
 
-	InitSessionName(MultiplayersSessionSetting);
+	InitSessionName();
 }
 
 UC_MultiplayerSessionSubsystem* UC_MultiplayerSessionSubsystem::Get()
@@ -206,8 +207,9 @@ bool UC_MultiplayerSessionSubsystem::StartSession(FName SessionName)
 	return true;
 }
 
-void UC_MultiplayerSessionSubsystem::InitSessionName(const UC_MultiplayerSessionSetting* MultiplayerSessionSetting)
+void UC_MultiplayerSessionSubsystem::InitSessionName()
 {
+	const UC_MultiplayerSessionSetting* MultiplayerSessionSetting = UC_MultiplayerSessionSetting::Get();
 	if (MultiplayerSessionSetting == nullptr)
 	{
 		return;
@@ -305,17 +307,20 @@ void UC_MultiplayerSessionSubsystem::OnCreateSessionComplete(FName SessionName, 
 		const FString GameModeObjectName = Setting->TransitionGameMode->GetName();
 		const FString GameModeFullPath = FString::Printf(TEXT("%s.%s"), *PackageName, *GameModeObjectName);
 		
-		const FSoftObjectPath TransitionMapPath = Setting->TransitionMap.ToSoftObjectPath();
-		if (!Setting->TransitionMap.IsValid() && !TransitionMapPath.IsValid())
-		{
-			UE_LOG(LogMultiplayerSession, Error, TEXT("Transition map is not valid"));
-			return;
-		}
-		const FString TransitionMapPathStr = TransitionMapPath.GetLongPackageName();
-		
-		const FString URL = FString::Printf(TEXT("%s?listen&game=%s"), *TransitionMapPathStr, *GameModeFullPath);
+		// const FSoftObjectPath TransitionMapPath = Setting->TransitionMap.ToSoftObjectPath();
+		// if (!Setting->TransitionMap.IsValid() && !TransitionMapPath.IsValid())
+		// {
+		// 	UE_LOG(LogMultiplayerSession, Error, TEXT("Transition map is not valid"));
+		// 	return;
+		// }
+		// const FString TransitionMapPathStr = TransitionMapPath.GetLongPackageName();
+		// // const FString URL = TransitionMapPathStr + "?listen";
+		// const FString URL = FString::Printf(TEXT("%s?listen&game=%s"), *TransitionMapPathStr, *GameModeFullPath);
+		//
+		// World->ServerTravel(URL, true);
 
-		World->ServerTravel(URL, true);
+		const FString Options = FString::Printf(TEXT("listen?game=%s"), *GameModeFullPath);
+		UGameplayStatics::OpenLevelBySoftObjectPtr(World, Setting->TransitionMap, true, Options);
 	}
 }
 
