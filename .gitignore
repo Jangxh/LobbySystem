@@ -16,3 +16,4 @@ Build
 *.xcodeproj
 *.xcworkspace
 Makefile
+*.code-workspace
