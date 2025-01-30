@@ -38,5 +38,13 @@ typedef FOnJoinMultiplayerSessionComplete::FDelegate FOnJoinMultiplayerSessionCo
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnStartMultiplayerSessionComplete, bool bSuccess);
 typedef FOnStartMultiplayerSessionComplete::FDelegate FOnStartMultiplayerSessionCompleteDelegate;
 
+/**
+ * 当多人会话销毁请求完成时触发委托
+ *
+ * @param bSuccess 当异步完成时没有错误返回true，否则返回false
+ */
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnDestroyMultiplayerSessionComplete, bool bSuccess);
+typedef FOnDestroyMultiplayerSessionComplete::FDelegate FOnDestroyMultiplayerSessionCompleteDelegate;
+
 
 

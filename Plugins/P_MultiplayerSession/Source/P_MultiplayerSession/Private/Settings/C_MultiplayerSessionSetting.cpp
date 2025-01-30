@@ -21,6 +21,21 @@ UC_MultiplayerSessionSetting* UC_MultiplayerSessionSetting::Get()
 	return Settings;
 }
 
+FName UC_MultiplayerSessionSetting::GetSessionName() const
+{
+	FName ResultSessionName;
+	if (bShareMainArea)
+	{
+		ResultSessionName = FName(FString::Printf(TEXT("%s_%s"), *MainAreaName, *SeatName));
+	}
+	else
+	{
+		ResultSessionName = FName(FString::Printf(TEXT("%s_%s_%s"), *MainAreaName, *MinorAreaName, *SeatName));
+	}
+
+	return ResultSessionName;
+}
+
 FText UC_MultiplayerSessionSetting::GetSectionText() const
 {
 	return NSLOCTEXT("MultiplayersSessionSettings", "SectionName", "多人会话");

@@ -6,6 +6,7 @@
 #include "GameFramework/GameMode.h"
 #include "C_LobbyGameMode.generated.h"
 
+class IOnlineSession;
 /**
  * 
  */
@@ -16,4 +17,13 @@ class P_MULTIPLAYERSESSION_API AC_LobbyGameMode : public AGameModeBase
 
 public:
 	AC_LobbyGameMode(const FObjectInitializer& ObjectInitializer);
+
+
+	virtual void OnPostLogin(AController* NewPlayer) override;
+
+private:
+	/**
+	 * 在线会话接口
+	 */
+	TWeakPtr<IOnlineSession> SessionInterface;
 };

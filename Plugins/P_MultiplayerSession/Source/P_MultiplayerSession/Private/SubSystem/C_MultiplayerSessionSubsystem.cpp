@@ -3,12 +3,10 @@
 
 #include "SubSystem/C_MultiplayerSessionSubsystem.h"
 
-#include "AudioMixerBlueprintLibrary.h"
 #include "C_MultiplayerSessionLogCategory.h"
 #include "OnlineSessionSettings.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSubsystemUtils.h"
-#include "Chaos/ChaosPerfTest.h"
 #include "Gameplay/C_LobbyGameMode.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Kismet/GameplayStatics.h"
@@ -34,14 +32,14 @@ StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this
 		return;
 	}
 
-	const UC_MultiplayerSessionSetting* MultiplayersSessionSetting = UC_MultiplayerSessionSetting::Get();
-	if (MultiplayersSessionSetting == nullptr)
+	const UC_MultiplayerSessionSetting* MultiplayerSessionSetting = UC_MultiplayerSessionSetting::Get();
+	if (MultiplayerSessionSetting == nullptr)
 	{
 		UE_LOG(LogMultiplayerSession, Error, TEXT("MultiiplayersSessionSetting is null"));
 		return;
 	}
 
-	InitSessionName();
+	PrivateSessionName = MultiplayerSessionSetting->GetSessionName();
 }
 
 UC_MultiplayerSessionSubsystem* UC_MultiplayerSessionSubsystem::Get()
@@ -74,7 +72,7 @@ bool UC_MultiplayerSessionSubsystem::CreateSession(FUniqueNetIdPtr UserID)
 	const UC_MultiplayerSessionSetting* MultiplayersSessionSetting = UC_MultiplayerSessionSetting::Get();
 	if (MultiplayersSessionSetting == nullptr)
 	{
-		UE_LOG(LogMultiplayerSession, Error, TEXT("MultiiplayersSessionSetting is null"));
+		UE_LOG(LogMultiplayerSession, Error, TEXT("MultiplayerSessionSetting is null"));
 		OnMultiplayerSessionCreated.Broadcast(false);
 		return false;
 	}
@@ -205,25 +203,7 @@ bool UC_MultiplayerSessionSubsystem::StartSession(FName SessionName)
 	}
 
 	return true;
-}
-
-void UC_MultiplayerSessionSubsystem::InitSessionName()
-{
-	const UC_MultiplayerSessionSetting* MultiplayerSessionSetting = UC_MultiplayerSessionSetting::Get();
-	if (MultiplayerSessionSetting == nullptr)
-	{
-		return;
-	}
-	
-	if (MultiplayerSessionSetting->bShareMainArea)
-	{
-		PrivateSessionName = FName(FString::Printf(TEXT("%s_%s"), *MultiplayerSessionSetting->MainAreaName, *MultiplayerSessionSetting->SeatName));
-	}
-	else
-	{
-		PrivateSessionName = FName(FString::Printf(TEXT("%s_%s_%s"), *MultiplayerSessionSetting->MainAreaName, *MultiplayerSessionSetting->MinorAreaName, *MultiplayerSessionSetting->SeatName));
-	}
-}
+}                         
 
 void UC_MultiplayerSessionSubsystem::FilterSearchResult() const
 {
@@ -268,6 +248,12 @@ void UC_MultiplayerSessionSubsystem::FilterSearchResult() const
 			}
 		}
 
+		if (SearchResult.Session.SessionSettings.NumPublicConnections <= 0)
+		{
+			UE_LOG(LogMultiplayerSession, Display, TEXT("session[%s] is full"), *MatchType);
+			continue;
+		}
+		
 		MatchedResults.Add(SearchResult);
 	}
 
@@ -306,18 +292,6 @@ void UC_MultiplayerSessionSubsystem::OnCreateSessionComplete(FName SessionName, 
 		const FString PackageName = Package->GetName();
 		const FString GameModeObjectName = Setting->TransitionGameMode->GetName();
 		const FString GameModeFullPath = FString::Printf(TEXT("%s.%s"), *PackageName, *GameModeObjectName);
-		
-		// const FSoftObjectPath TransitionMapPath = Setting->TransitionMap.ToSoftObjectPath();
-		// if (!Setting->TransitionMap.IsValid() && !TransitionMapPath.IsValid())
-		// {
-		// 	UE_LOG(LogMultiplayerSession, Error, TEXT("Transition map is not valid"));
-		// 	return;
-		// }
-		// const FString TransitionMapPathStr = TransitionMapPath.GetLongPackageName();
-		// // const FString URL = TransitionMapPathStr + "?listen";
-		// const FString URL = FString::Printf(TEXT("%s?listen&game=%s"), *TransitionMapPathStr, *GameModeFullPath);
-		//
-		// World->ServerTravel(URL, true);
 
 		const FString Options = FString::Printf(TEXT("listen?game=%s"), *GameModeFullPath);
 		UGameplayStatics::OpenLevelBySoftObjectPtr(World, Setting->TransitionMap, true, Options);

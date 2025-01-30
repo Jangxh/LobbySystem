@@ -78,7 +78,7 @@ protected:
 	/**
 	 * 初始化会话名称
 	 */
-	void InitSessionName();
+	// void InitSessionName();
 	void FilterSearchResult() const;
 
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful);

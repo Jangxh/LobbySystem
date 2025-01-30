@@ -20,6 +20,8 @@ public:
 	UC_MultiplayerSessionSetting(const FObjectInitializer& ObjectInitializer);
 	static UC_MultiplayerSessionSetting* Get();
 
+	FName GetSessionName() const;
+
 #if WITH_EDITOR
 	virtual FText GetSectionText() const override;
 	virtual FText GetSectionDescription() const override;
@@ -53,7 +55,7 @@ public:
 	/**
 	 * 最大玩家数
 	 */
-	UPROPERTY(Config, EditAnywhere, Category=OnlineSession, DisplayName="最大玩家数")
+	UPROPERTY(Config, EditAnywhere, Category=OnlineSession, DisplayName="最大玩家数", meta=(ClampMin=1))
 	uint8 MaxPlayers = 6;
 	
 	/**
