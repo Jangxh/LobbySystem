@@ -16,7 +16,8 @@ UC_MultiplayerSessionSubsystem::UC_MultiplayerSessionSubsystem():
 CreateSessionCompleteDelegate(FOnCreateSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnCreateSessionComplete)),
 FindSessionsCompleteDelegate(FOnFindSessionsCompleteDelegate::CreateUObject(this, &ThisClass::OnFindSessionComplete)),
 JoinSessionCompleteDelegate(FOnJoinSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnJoinSessionComplete)),
-StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnStartSessionComplete))
+StartSessionCompleteDelegate(FOnStartSessionCompleteDelegate::CreateUObject(this, &ThisClass::OnStartSessionComplete)),
+DestroySessionCompleteDelegate(FOnDestroySessionCompleteDelegate::CreateUObject(this, &ThisClass::OnDestroySessionComplete))
 {
 	const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(UObject::GetWorld());
 	if (OnlineSubsystem == nullptr)
@@ -203,7 +204,43 @@ bool UC_MultiplayerSessionSubsystem::StartSession(FName SessionName)
 	}
 
 	return true;
-}                         
+}
+
+bool UC_MultiplayerSessionSubsystem::DestroySession(FName SessionName)
+{
+	if (!SessionInterface.IsValid())
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("SessionInterface is null"));
+		OnMultiplayerSessionStarted.Broadcast(false);
+		return false;
+	}
+
+	const IOnlineSessionPtr SessionPtr = SessionInterface.Pin();
+	if (SessionName == NAME_None)
+	{
+		SessionName = PrivateSessionName;
+	}
+
+	const FNamedOnlineSession* ExistingSession = SessionPtr->GetNamedSession(SessionName);
+	if (ExistingSession == nullptr)
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("sesssion[%s] not existed"), *SessionName.ToString());
+		OnMultiplayerSessionStarted.Broadcast(false);
+		return false;
+	}
+
+	DestroySessionCompleteDelegateHandle = SessionPtr->AddOnDestroySessionCompleteDelegate_Handle(DestroySessionCompleteDelegate);
+	const bool bSuccess = SessionPtr->DestroySession(SessionName);
+	if (!bSuccess)
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("Failed to destroy session request"));
+		OnMultiplayerSessionStarted.Broadcast(false);
+		SessionPtr->ClearOnDestroySessionCompleteDelegate_Handle(DestroySessionCompleteDelegateHandle);
+		return false;
+	}
+
+	return true;
+}
 
 void UC_MultiplayerSessionSubsystem::FilterSearchResult() const
 {
@@ -368,4 +405,16 @@ void UC_MultiplayerSessionSubsystem::OnStartSessionComplete(FName SessionName, b
 	}
 
 	OnMultiplayerSessionStarted.Broadcast(bWasSuccessful);
+}
+
+void UC_MultiplayerSessionSubsystem::OnDestroySessionComplete(FName SessionName, bool bWasSuccessful)
+{
+	UE_LOG(LogMultiplayerSession, Display, TEXT("destroy session[%s] success: %s"), *SessionName.ToString(), bWasSuccessful ? TEXT("true") : TEXT("false"));
+	if (SessionInterface.IsValid())
+	{
+		const IOnlineSessionPtr SessionPtr = SessionInterface.Pin();
+		SessionPtr->ClearOnDestroySessionCompleteDelegate_Handle(DestroySessionCompleteDelegateHandle);
+	}
+
+	OnMultiplayerSessionDestroyed.Broadcast(bWasSuccessful);
 }

@@ -53,6 +53,13 @@ public:
 	 * @return 
 	 */
 	bool StartSession(FName SessionName = NAME_None);
+
+	/**
+	 * 销毁在线会话
+	 * @param SessionName 
+	 * @return 
+	 */
+	bool DestroySession(FName SessionName = NAME_None);
 	
 	/**
 	 * 会话创建完成委托
@@ -74,6 +81,11 @@ public:
 	 */
 	FOnStartMultiplayerSessionComplete OnMultiplayerSessionStarted;
 
+	/**
+	 * 会话销毁完成委托
+	 */
+	FOnDestroyMultiplayerSessionComplete OnMultiplayerSessionDestroyed;
+
 protected:
 	/**
 	 * 初始化会话名称
@@ -85,6 +97,7 @@ protected:
 	void OnFindSessionComplete(bool bSuccess);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
 	void OnStartSessionComplete(FName SessionName, bool bWasSuccessful);
+	void OnDestroySessionComplete(FName SessionName, bool bWasSuccessful);
 
 private:
 	/**
@@ -141,4 +154,14 @@ private:
 	 * 绑定启动会话委托返回的Handle
 	 */
 	FDelegateHandle StartSessionCompleteDelegateHandle;
+
+	/**
+	 * 处理销毁会话的委托
+	 */
+	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
+
+	/**
+	 * 绑定销毁会话委托返回的Handle
+	 */
+	FDelegateHandle DestroySessionCompleteDelegateHandle;
 };
