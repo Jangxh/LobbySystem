@@ -9,12 +9,14 @@
 #include "Gameplay/C_LobbyPlayerController.h"
 #include "OnlineSubsystemUtils.h"
 #include "GameFramework/GameSession.h"
+#include "Gameplay/C_LobbyGameState.h"
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Settings/C_MultiplayerSessionSetting.h"
 
 AC_LobbyGameMode::AC_LobbyGameMode(const FObjectInitializer& ObjectInitializer): Super(ObjectInitializer)
 {
 	PlayerControllerClass = AC_LobbyPlayerController::StaticClass();
+	GameStateClass = AC_LobbyGameState::StaticClass();
 
 	const IOnlineSubsystem* OnlineSubsystem = Online::GetSubsystem(UObject::GetWorld());
 	if (OnlineSubsystem == nullptr)
@@ -88,18 +90,38 @@ void AC_LobbyGameMode::OnPostLogin(AController* NewPlayer)
 		}
 		const FString LobbyMapPathStr = LobbyMapPath.GetLongPackageName();
 		PlayerController->ClientTravel(LobbyMapPathStr, TRAVEL_Absolute);
-		// GameSession->KickPlayer(PlayerController, FText::FromString(TEXT("session is full")));
 
 		return;
 	}
 	
 	CurSessionSettings->NumPublicConnections -= 1;
-	const bool bSuccess = SessionPtr->UpdateSession(SessionName, *CurSessionSettings);
+	bool bSuccess = SessionPtr->UpdateSession(SessionName, *CurSessionSettings);
 	if (!bSuccess)
 	{
 		UE_LOG(LogMultiplayerSession, Error, TEXT("session[%s] update session setting failed"), *SessionName.ToString());\
 	}
 	UE_LOG(LogMultiplayerSession, Display, TEXT("Post login now remain client: %d"), CurSessionSettings->NumPublicConnections);
+
+	AC_LobbyGameState* LobbyGameState = GetGameState<AC_LobbyGameState>();
+	if (LobbyGameState == nullptr)
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("Game state is not lobby game state"));
+		return;
+	}
+
+	AC_LobbyPlayerController* LobbyPlayerController = Cast<AC_LobbyPlayerController>(PlayerController);
+	if (LobbyPlayerController == nullptr)
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("PlayerController is not lobby player controller"));
+		return;
+	}
+
+	bSuccess = LobbyGameState->AssignToDefaultTeam(LobbyPlayerController->GetSeatName());
+	if (!bSuccess)
+	{
+		UE_LOG(LogMultiplayerSession, Error, TEXT("Assign to default team failed"));
+	}
+	
 }
 
 void AC_LobbyGameMode::Logout(AController* Exiting)
@@ -149,7 +171,14 @@ void AC_LobbyGameMode::Logout(AController* Exiting)
 	const bool bSuccess = SessionPtr->UpdateSession(SessionName, *CurSessionSettings);
 	if (!bSuccess)
 	{
-		UE_LOG(LogMultiplayerSession, Error, TEXT("session[%s] update session setting failed"), *SessionName.ToString());\
+		UE_LOG(LogMultiplayerSession, Error, TEXT("session[%s] update session setting failed"), *SessionName.ToString());
 	}
 	UE_LOG(LogMultiplayerSession, Display, TEXT("logout now remain client: %d"), CurSessionSettings->NumPublicConnections);
+
+	AC_LobbyGameState* LobbyGameState = GetGameState<AC_LobbyGameState>();
+	if (LobbyGameState == nullptr)
+		return;
+
+	
+	LobbyGameState->RemoveFromTeam(LobbyPlayerController->GetSeatName());
 }

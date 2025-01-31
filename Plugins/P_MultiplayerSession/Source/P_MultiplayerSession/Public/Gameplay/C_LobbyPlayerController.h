@@ -16,6 +16,7 @@ class P_MULTIPLAYERSESSION_API AC_LobbyPlayerController : public APlayerControll
 
 public:
 	virtual void BeginPlay() override;
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 	/**
 	 * 离开房间
@@ -24,13 +25,45 @@ public:
 	void LeaveRoom();
 
 	/**
+	 * 切换队伍
+	 *
+	 * 根据当前所在队伍的顺序依次切换
+	 */
+	UFUNCTION(BlueprintCallable, Server, Reliable, Category = "Multiplayer|Session")
+	void SwitchTeam();
+
+	/**
+	 * 获取当前所在队伍名称
+	 * @return 
+	 */
+	UFUNCTION(BlueprintPure, Category = "Multiplayer|Session")
+	FString GetTeamName() const;
+
+	/**
+	 * 获取当前队伍的成员
+	 * @return 
+	 */
+	UFUNCTION(BlueprintPure, Category = "Multiplayer|Session")
+	TArray<FString> GetTeamMembers() const;
+
+	/**
+	 * 获取席位名称
+	 * @return 
+	 */
+	UFUNCTION(BlueprintPure, Category = "Multiplayer|Session")
+	FString GetSeatName() const;
+	
+	UFUNCTION(Server, Reliable, Category = "Multiplayer|Session")
+	void SetSeatName(const FString& InSeatName);
+	
+	/**
 	 * 销毁本地会话
 	 * @param SessionName 
 	 */
-	UFUNCTION(BlueprintCallable, Client, Reliable, Category = "Multiplayer|Session")
+	UFUNCTION(Client, Reliable, Category = "Multiplayer|Session")
 	void DestroyLocalOnlineSession(FName SessionName=NAME_None);
-
-	// UPROPERTY(BlueprintReadOnly, ReplicatedUsing=OnReplicated_Kicked)
+	
+	
 	bool bIsKicked = false;
 private:
 	/**
@@ -48,5 +81,9 @@ private:
 	 */
 	void TravelToLobbyMap();
 
-	// void OnReplicated_Kicked();
+	UPROPERTY(Replicated)
+	int TeamIndex = INDEX_NONE;
+
+	UPROPERTY(Replicated)
+	FString SeatName;
 };
