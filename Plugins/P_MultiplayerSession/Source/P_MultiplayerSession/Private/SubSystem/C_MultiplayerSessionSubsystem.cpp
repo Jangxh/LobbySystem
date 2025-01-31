@@ -224,7 +224,7 @@ bool UC_MultiplayerSessionSubsystem::DestroySession(FName SessionName)
 	const FNamedOnlineSession* ExistingSession = SessionPtr->GetNamedSession(SessionName);
 	if (ExistingSession == nullptr)
 	{
-		UE_LOG(LogMultiplayerSession, Error, TEXT("sesssion[%s] not existed"), *SessionName.ToString());
+		UE_LOG(LogMultiplayerSession, Error, TEXT("session[%s] not existed"), *SessionName.ToString());
 		OnMultiplayerSessionStarted.Broadcast(false);
 		return false;
 	}

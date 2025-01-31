@@ -56,7 +56,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FBlueprintFindMultiplayerSessionResultDelegate OnFailure;
 
-	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly = "true"), Category = "Multiplayers|Session")
+	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly = "true"), Category = "Multiplayer|Session")
 	static UC_FindMultiplayerSessionsCallbackProxy* FindMultiplayerSessions(APlayerController* PlayerController, int32 MaxResult);
 
 	virtual void Activate() override;

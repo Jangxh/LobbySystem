@@ -30,7 +30,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FEmptyMultiplayersDelegate OnFailure;
 
-	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly = "true"), Category = "Multiplayers|Session")
+	UFUNCTION(BlueprintCallable, meta=(BlueprintInternalUseOnly = "true"), Category = "Multiplayer|Session")
 	static UC_CreateMultiplayerSessionCallbackProxy* CreateMultiplayerSession(APlayerController* PlayerController);
 
 	virtual void Activate() override;

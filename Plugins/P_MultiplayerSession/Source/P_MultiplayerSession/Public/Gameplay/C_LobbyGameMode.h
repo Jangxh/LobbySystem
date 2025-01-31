@@ -20,6 +20,7 @@ public:
 
 
 	virtual void OnPostLogin(AController* NewPlayer) override;
+	virtual void Logout(AController* Exiting) override;
 
 private:
 	/**
